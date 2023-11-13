@@ -1,99 +1,99 @@
-const Book = require('../models/book.model');
+const Book = require('../models/movie.model');
 
-exports.getBooks = async (req, res) => {
+exports.getMovies = async (req, res) => {
     try {
-        const books = await Book.find();
+        const movies = await Movie.find();
         return res.status(200).json({
-            message: "Consulta de libros",
-            data: books
+            message: "Consulta de peliculas.",
+            data: movies
         }
         );
     } catch (error) {
         return res.status(500).json(
             {
-                message: "Error al consultar libros.",
+                message: "Error al consultar peliculas.",
                 data: error
             }
         );
     }
 };
 
-exports.getBookById = async (req, res) => {
-    const bookId = req.params.bookId;
+exports.getMovieById = async (req, res) => {
+    const movieId = req.params.movieId;
     try {
-        const book = await Book.findById(bookId);
+        const movie = await Movie.findById(movieId);
         return res.status(200).json(
             {
-                message: "Consultando libro por Id: " + bookId,
-                data: book
+                message: "Consultando película por Id: " + movieId,
+                data: movie
             }
         );
     } catch (error) {
         return res.status(500).json(
             {
-                message: "Error al consultar libros.",
+                message: "Error al consultar peliculas.",
                 data: error
             }
         );
     }
 };
 
-exports.newBook = async (req, res) => {
+exports.newMovie = async (req, res) => {
     try {
-        const {titulo, autor, isbn, genero, precio, stock} = req.body;
-        const newBook = new Book({titulo, autor, isbn, genero, precio, stock});
-        await newBook.save();
+        const {id, nombre, director, año, duración, género} = req.body;
+        const newMovie = new Movie({id, nombre, director, año, duración, género});
+        await newMovie.save();
         return res.status(200).json(
             {
-                message: "Libro creado.",
-                data: newBook                
+                message: "Película creada.",
+                data: newMovie                
             }
         );
     } catch (error) {
         return res.status(500).json(
             {
-                message: "Error al crear libro.",
+                message: "Error al crear película.",
                 data: error
             }
         );
     }
 };
 
-exports.updateBook = async (req, res) => {
-    const bookId = req.params.bookId;
+exports.updateMovie = async (req, res) => {
+    const movieId = req.params.movieId;
     const newData = req.body;
     
     try {
-        const updateBook = await Book.findByIdAndUpdate(bookId, newData, {new: true});
+        const updateMovie = await Movie.findByIdAndUpdate(movieId, newData, {new: true});
         return res.status(201).json(
             {
-                message: "Actualizar libro por Id: " + bookId,
-                data: updateBook
+                message: "Actualizar película por Id: " + movieId,
+                data: updateMovie
             }
         );
     } catch (error) {
         return res.status(500).json(
             {
-                message: "Error al actualizar libro.",
+                message: "Error al actualizar película.",
                 data: error
             }
         );
     }
 };
 
-exports.deleteBook = async (req, res) => {
-    const bookId = req.params.bookId;
+exports.deleteMovie = async (req, res) => {
+    const movieId = req.params.movieId;
     try {
-        await Book.findByIdAndDelete(bookId);
+        await Movie.findByIdAndDelete(movieId);
         return res.status(201).json(
             {
-                message: "Libro eliminado con Id: " + bookId
+                message: "Película eliminada con Id: " + movieId
             }
         );
     } catch (error) {
         return res.status(500).json(
             {
-                message: "Error al eliminar libro.",
+                message: "Error al eliminar película.",
                 data: error
             }
         );
