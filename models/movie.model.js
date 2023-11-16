@@ -9,4 +9,4 @@ let movieSchema = new mongoose.Schema({
     género: {type: String},
 });
 
-module.exports = mongoose.model('Movie', bookSchema, 'movie');
+module.exports = mongoose.model('Movie', movieSchema, 'movie');
