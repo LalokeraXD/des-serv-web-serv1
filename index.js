@@ -3,8 +3,7 @@ const morgan = require('morgan');
 
 require('./utils/mongoConnection');
 
-const moviesRouter = require('./routers/movies.router');
-const usersRouter = require('./routers/users.router');
+const booksRouter = require('./routers/books.router');
 
 const app = express();
 const port = 3003;
@@ -12,13 +11,11 @@ const port = 3003;
 app.use(morgan('dev'));
 
 app.get("/", (req, res) => {
-    res.send("Bienvenido a la Películas API");
+    res.send("Bienvenido a la Librería API");
 });
 
 app.use(express.json({limit: '50mb'}));
-
-app.use('/movies', moviesRouter);
-app.use('/users', usersRouter);
+app.use('/books', booksRouter);
 
 
 app.listen(port, () => {
