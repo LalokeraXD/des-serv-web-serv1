@@ -41,14 +41,18 @@ exports.getUsers = async (req, res) => {
 exports.loginUser = async (req, res) => {
     try{
         const {email, password} = req.body;
-        
+        console.log(email + " "+ password);
+
         await User.findOne({email}).then(async user => {
-            if (!user){
+            console.log(user);
+            if (user){
                 return res.status(401).json({error: 'Credenciales inválidas.'});
             }
-            
+
             const passwordMatch = await bcrypt.compare(password, user.password);
-            
+            console.log(123);
+
+            console.log(passwordMatch);
             if(!passwordMatch){
                 return res.status(401).json({error: 'Credenciales inválidas.'});
             }
